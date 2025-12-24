@@ -8,8 +8,10 @@ export interface FileObject {
 }
 
 const getBaseUrl = (config: MinioConfig): string => {
+  // Strip any existing protocol from endpoint
+  const cleanEndpoint = config.endpoint.replace(/^https?:\/\//, '');
   const protocol = config.useSSL ? 'https' : 'http';
-  return `${protocol}://${config.endpoint}`;
+  return `${protocol}://${cleanEndpoint}`;
 };
 
 // Generate AWS Signature V4 (simplified for browser)
